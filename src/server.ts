@@ -1,22 +1,16 @@
 //#region MODULOS REQUERIDOS
 
-// import { LoginController as Login } from "./src/classes/LoginController";
-// import { JWTController as JWT } from "./src/classes/JWTController";
-import { UsersRouter } from "./src/routes/users";
 import express from 'express';
 import mysql from 'mysql';
 import expressMyConnection from 'express-myconnection';
-import multer from 'multer';
-import mime from 'mime-types';
-import fs from 'fs';
 import cors from 'cors';
-import jwt from 'jsonwebtoken';
+import { UsersRouter } from "./routes/users.js";
 
 //#endregion
 
 //#region CONFIGURACIÓN DEL SERVIDOR
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 app.disable('x-powered-by');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -29,11 +23,7 @@ app.use(expressMyConnection(mysql, {
 },
   'single'));
 app.use(cors());
-const upload = multer({
-  dest: 'public/articulos/fotos/'
-});
 app.set("key_jwt", "pascucci.guido");
-
 app.use('/users', UsersRouter);
 //#endregion
 
